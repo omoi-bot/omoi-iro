@@ -1,0 +1,1485 @@
+/* ========================================
+   リセット・基本設定
+======================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* 和のカラーパレット — オレンジ・黄・赤系の和柄 */
+  --beniaka: #9B2335;       /* 紅赤（メインアクセント）*/
+  --kurenai: #C0392B;       /* 紅 */
+  --orange:  #D4621A;       /* 柿色（和柄メイン）*/
+  --amber:   #E8960C;       /* 琥珀・黄（和柄サブ）*/
+  --yellow:  #D4A017;       /* 山吹色 */
+  --kin: #B8962E;           /* 金 */
+  --kin-light: #EDD99A;     /* 薄金 */
+  --sakura: #F2C4CE;        /* 桜色 */
+  --sakura-light: #FDF0F3;  /* 薄桜 */
+  --usucha: #FAF0E4;        /* 薄茶（和紙）*/
+  --shiro: #FDFAF5;         /* 白磁 */
+  --keshizumi: #3A3028;     /* 消炭（濃いテキスト）*/
+  --sumizumi: #6B5B4E;      /* 墨色（中間テキスト）*/
+  --usuzumi: #9E8E82;       /* 薄墨（淡いテキスト）*/
+
+  --font-serif: 'Noto Serif JP', serif;
+  --font-sans: 'Noto Sans JP', sans-serif;
+
+  --section-py: 96px;
+  --container-max: 1080px;
+  --container-px: 24px;
+  --transition: 0.35s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--keshizumi);
+  background: var(--shiro);
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   和柄パターン集 — オレンジ・黄・赤系
+======================================== */
+
+/* 青海波（せいがいは）— オレンジ */
+.seigaiha-bg {
+  background-color: var(--sakura-light);
+  background-image:
+    radial-gradient(ellipse 60px 52px at 60px 52px,
+      transparent 49px, rgba(212,98,26,0.1) 50px, transparent 51px),
+    radial-gradient(ellipse 60px 52px at 0px 52px,
+      transparent 49px, rgba(212,98,26,0.1) 50px, transparent 51px),
+    radial-gradient(ellipse 60px 52px at 30px 0px,
+      transparent 49px, rgba(212,98,26,0.1) 50px, transparent 51px);
+  background-size: 60px 52px;
+}
+
+/* 麻の葉（あさのは）— 琥珀 */
+.asanoha-bg {
+  background-color: var(--usucha);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='rgba(212,160,23,0.18)' stroke-width='0.9'%3E%3Cpolygon points='30,5 55,17.5 55,42.5 30,55 5,42.5 5,17.5'/%3E%3Cline x1='30' y1='5' x2='30' y2='55'/%3E%3Cline x1='5' y1='17.5' x2='55' y2='42.5'/%3E%3Cline x1='55' y1='17.5' x2='5' y2='42.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* ========================================
+   共通ユーティリティ
+======================================== */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+/* 和風セクション区切り — 柿・山吹グラデーション */
+.wa-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.wa-divider::before,
+.wa-divider::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--orange));
+}
+
+.wa-divider::after {
+  background: linear-gradient(to left, transparent, var(--orange));
+}
+
+.wa-divider-icon {
+  color: var(--orange);
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+
+/* セクション間の帯装飾 */
+.section-band {
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--beniaka) 0%,
+    var(--orange)  30%,
+    var(--amber)   50%,
+    var(--orange)  70%,
+    var(--beniaka) 100%);
+}
+
+/* セクション共通ヘッダー */
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.45em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 700;
+  color: var(--keshizumi);
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+/* タイトル下の和風ライン — 紅→柿→山吹 */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--beniaka), var(--orange), var(--amber));
+  margin: 12px auto 0;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--usuzumi);
+  line-height: 2;
+  margin-top: 8px;
+}
+
+/* ボタン */
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--beniaka);
+  color: var(--shiro);
+  border-color: var(--beniaka);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(155,35,53,0.35); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--beniaka);
+  border-color: var(--beniaka);
+}
+
+.btn-secondary:hover {
+  background: var(--sakura-light);
+  transform: translateY(-2px);
+}
+
+.btn-full { display: block; width: 100%; text-align: center; }
+
+/* ========================================
+   ナビゲーション
+======================================== */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(253,250,245,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(184,150,46,0.2);
+}
+
+/* ナビ上部の和柄ライン — 紅→柿→山吹→柿→紅 */
+.header::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--beniaka) 0%,
+    var(--orange)  25%,
+    var(--amber)   50%,
+    var(--orange)  75%,
+    var(--beniaka) 100%);
+}
+
+.nav {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--beniaka);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.nav-logo-sub {
+  font-size: 9px;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  color: var(--usuzumi);
+  letter-spacing: 0.3em;
+  margin-top: 4px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--sumizumi);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--beniaka);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover { color: var(--beniaka); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: var(--beniaka) !important;
+  color: var(--shiro) !important;
+  padding: 8px 20px;
+  letter-spacing: 0.1em !important;
+  border-radius: 2px;
+}
+
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { opacity: 0.85; }
+
+/* ハンバーガーメニュー */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--beniaka);
+  border-radius: 1px;
+  transition: all var(--transition);
+}
+
+/* モバイルメニュー */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 63px; left: 0; right: 0;
+  background: var(--shiro);
+  border-bottom: 1px solid rgba(184,150,46,0.2);
+  z-index: 99;
+}
+
+.mobile-menu.open { display: block; }
+
+.mobile-menu ul { list-style: none; }
+
+.mobile-menu a {
+  display: block;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-family: var(--font-serif);
+  color: var(--keshizumi);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(184,150,46,0.12);
+}
+
+.mobile-menu a:hover { background: var(--sakura-light); color: var(--beniaka); }
+
+/* ========================================
+   ヒーロー — フルスクリーンスライダー
+======================================== */
+/* ヒーロー全体 — 3カラム（花 | 中央コンテンツ | 花） */
+.hero {
+  display: grid;
+  grid-template-columns: 180px 1fr 180px;
+  width: 100%;
+  background: var(--usucha);
+  position: relative;
+}
+
+/* 中央カラム — 写真 + テキストを縦並び */
+.hero-slider {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 写真ゾーン — 上半分 */
+.hero-photo-zone {
+  position: relative;
+  width: 100%;
+  height: 56vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.slide.active { opacity: 1; }
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transform: scale(1.04);
+  transition: transform 6s ease;
+  filter: brightness(1.15);
+}
+
+.slide.active img { transform: scale(1); }
+
+/* 写真の上の暗めグラデーション */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(20,10,5,0.2) 0%,
+      rgba(20,10,5,0.05) 60%,
+      rgba(20,10,5,0.3) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ========================================
+   両サイドの和柄花装飾 — 独立カラムに収める
+======================================== */
+.hero-flowers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--usucha);
+  padding: 24px 8px;
+}
+
+.hero-flowers--left  { grid-column: 1; }
+.hero-flowers--right { grid-column: 3; }
+
+/* 各花SVGのサイズ・位置 */
+.hf { display: block; }
+
+.hf-red-lg    { width: 110px; height: 110px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
+.hf-orange-md { width: 76px;  height: 76px;  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+.hf-yellow-sm { width: 54px;  height: 54px;  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15)); }
+.hf-sakura    { width: 44px;  height: 44px; }
+
+/* カラフルな四角ドット */
+.hf-dot {
+  display: block;
+  width: 14px; height: 14px;
+  border-radius: 2px;
+  margin: 2px auto;
+}
+.hf-dot--red    { background: var(--beniaka); }
+.hf-dot--orange { background: var(--orange);  }
+.hf-dot--yellow { background: var(--amber);   }
+
+/* ========================================
+   ヒーロー テキストゾーン — 写真の下に通常フロー配置
+======================================== */
+.hero-text {
+  text-align: center;
+  padding: 36px 32px 48px;
+  background: var(--usucha);
+  width: 100%;
+}
+
+.hero-text-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+
+.hero-text-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 700;
+  color: var(--keshizumi);
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
+.hero-text-copy {
+  font-family: var(--font-serif);
+  font-size: clamp(13px, 2vw, 18px);
+  color: var(--sumizumi);
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+/* 講座内容タグ */
+.hero-text-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.hero-text-tags span {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--shiro);
+  background: var(--orange);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 4px 12px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+}
+
+.hero-text-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 白い枠のセカンダリボタン（写真背景用） */
+.btn-secondary-white {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: transparent;
+  color: var(--keshizumi);
+  border: 1.5px solid var(--keshizumi);
+}
+
+.btn-secondary-white:hover {
+  background: rgba(58,48,40,0.08);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   スライダーナビゲーション
+======================================== */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  color: var(--shiro);
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background var(--transition), transform var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-btn:hover {
+  background: rgba(212,98,26,0.7);
+  border-color: var(--orange);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn--prev { left: 16px; }
+.slider-btn--next { right: 16px; }
+
+/* ドットインジケーター */
+.slider-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 10px;
+}
+
+.slider-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  padding: 0;
+}
+
+.slider-dot.active {
+  background: var(--orange);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ========================================
+   波紋区切り（残留スタイル）
+======================================== */
+.section-wave {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: var(--kin-light);
+  letter-spacing: 8px;
+  padding: 8px 0;
+}
+
+/* brush-text（他セクション用） */
+.brush-text {
+  font-family: var(--font-serif);
+  font-size: clamp(44px, 10vw, 90px);
+  font-weight: 700;
+  color: var(--beniaka);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  display: inline-block;
+  text-shadow: 3px 3px 0px rgba(155,35,53,0.15);
+}
+
+/* ========================================
+   教室についてセクション
+======================================== */
+.about {
+  padding: var(--section-py) 0;
+  background: var(--shiro);
+  position: relative;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 14.5px;
+  color: var(--sumizumi);
+  line-height: 2.1;
+  margin-bottom: 20px;
+}
+
+.about-text strong { color: var(--beniaka); }
+
+.about-features {
+  list-style: none;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  color: var(--sumizumi);
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(184,150,46,0.2);
+}
+
+.about-features li:last-child { border-bottom: none; }
+
+.feature-icon {
+  color: var(--orange);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* 作品写真スタック */
+.about-visual { display: flex; justify-content: center; align-items: center; }
+
+.about-photo-stack {
+  position: relative;
+  width: 300px;
+  height: 340px;
+}
+
+.about-photo {
+  position: absolute;
+  object-fit: cover;
+  border: 3px solid var(--shiro);
+  box-shadow: 0 8px 32px rgba(58,48,40,0.18);
+  border-radius: 4px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.about-photo-main {
+  width: 240px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.about-photo-sub1 {
+  width: 170px;
+  height: 130px;
+  top: 8px;
+  left: -10px;
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+
+.about-photo-sub2 {
+  width: 170px;
+  height: 130px;
+  bottom: 8px;
+  right: -10px;
+  transform: rotate(4deg);
+  z-index: 2;
+}
+
+.about-photo-stack:hover .about-photo-main { transform: translate(-50%, -50%) scale(1.03); box-shadow: 0 16px 48px rgba(155,35,53,0.2); }
+.about-photo-stack:hover .about-photo-sub1 { transform: rotate(-8deg) translateY(-4px); }
+.about-photo-stack:hover .about-photo-sub2 { transform: rotate(7deg) translateY(-4px); }
+
+/* ========================================
+   作品ギャラリーセクション
+======================================== */
+.gallery {
+  padding: var(--section-py) 0;
+  background: var(--shiro);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap: 12px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--usucha);
+}
+
+.gallery-item--tall  { grid-row: span 2; }
+.gallery-item--wide  { grid-column: span 2; }
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.07); }
+
+/* ホバー時のオーバーレイ */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(155,35,53,0.75) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+.gallery-overlay span {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--shiro);
+  letter-spacing: 0.08em;
+}
+
+/* ========================================
+   コース紹介セクション（麻の葉背景 — 琥珀・山吹）
+======================================== */
+.services {
+  padding: var(--section-py) 0;
+  background-color: #FFF8EE;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='rgba(212,98,26,0.13)' stroke-width='0.9'%3E%3Cpolygon points='30,4 56,18 56,46 30,60 4,46 4,18'/%3E%3Cline x1='30' y1='4' x2='30' y2='60'/%3E%3Cline x1='4' y1='18' x2='56' y2='46'/%3E%3Cline x1='56' y1='18' x2='4' y2='46'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  position: relative;
+}
+
+/* コースセクション上下の帯 */
+.services::before,
+.services::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg,
+    var(--beniaka), var(--orange), var(--amber), var(--orange), var(--beniaka));
+}
+
+.services::before { top: 0; }
+.services::after  { bottom: 0; }
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.course-card {
+  background: var(--shiro);
+  border-radius: 4px;
+  padding: 44px 36px;
+  position: relative;
+  box-shadow: 0 4px 32px rgba(58,48,40,0.08);
+  transition: transform var(--transition), box-shadow var(--transition);
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(90deg, var(--beniaka), var(--orange), var(--amber)) 1;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(155,35,53,0.12);
+}
+
+/* 右上の花紋装飾 */
+.course-card::after {
+  content: '✿';
+  position: absolute;
+  top: 16px; right: 20px;
+  font-size: 18px;
+  color: var(--kin-light);
+}
+
+/* コースカード上部の写真 */
+.course-img-wrap {
+  margin: -44px -36px 24px;
+  height: 180px;
+  overflow: hidden;
+}
+
+.course-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.course-card:hover .course-img { transform: scale(1.05); }
+
+.course-badge {
+  display: inline-block;
+  background: var(--beniaka);
+  color: var(--shiro);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 12px;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+.course-icon {
+  font-size: 44px;
+  margin-bottom: 18px;
+  font-family: var(--font-serif);
+  color: var(--beniaka);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.course-icon-lame { font-size: 24px; color: var(--kin); }
+
+.course-name {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--keshizumi);
+  margin-bottom: 14px;
+  letter-spacing: 0.08em;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(184,150,46,0.2);
+}
+
+.course-desc {
+  font-size: 13.5px;
+  color: var(--usuzumi);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.course-points {
+  list-style: none;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-points li {
+  font-size: 13px;
+  color: var(--sumizumi);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.7;
+}
+
+.course-points li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--orange);
+  font-size: 9px;
+  top: 4px;
+}
+
+.course-price {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--sakura-light);
+  border-radius: 2px;
+  text-align: center;
+  border: 1px solid rgba(242,196,206,0.6);
+}
+
+.price-label {
+  display: block;
+  font-size: 10px;
+  color: var(--usuzumi);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+}
+
+.price-value {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--beniaka);
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   レッスンの流れ
+======================================== */
+.flow {
+  padding: var(--section-py) 0;
+  background: var(--shiro);
+}
+
+.flow-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flow-step {
+  flex: 1;
+  min-width: 180px;
+  max-width: 220px;
+  text-align: center;
+  padding: 36px 20px;
+  position: relative;
+}
+
+/* 丸い番号 */
+.step-number {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--beniaka), var(--orange));
+  color: var(--shiro);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 16px rgba(212,98,26,0.3);
+}
+
+.step-content h3 {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--keshizumi);
+  margin-bottom: 10px;
+  letter-spacing: 0.08em;
+}
+
+.step-content p {
+  font-size: 12.5px;
+  color: var(--usuzumi);
+  line-height: 1.8;
+}
+
+.flow-arrow {
+  font-size: 20px;
+  color: var(--kin-light);
+  align-self: center;
+  flex-shrink: 0;
+  padding-bottom: 24px;
+}
+
+/* ========================================
+   お問い合わせセクション（青海波 — 柿色）
+======================================== */
+.contact {
+  padding: var(--section-py) 0;
+  background-color: #FFF5EE;
+  background-image:
+    radial-gradient(ellipse 60px 52px at 60px 52px,
+      transparent 49px, rgba(212,98,26,0.1) 50px, transparent 51px),
+    radial-gradient(ellipse 60px 52px at 0px 52px,
+      transparent 49px, rgba(212,98,26,0.1) 50px, transparent 51px),
+    radial-gradient(ellipse 60px 52px at 30px 0px,
+      transparent 49px, rgba(232,150,12,0.08) 50px, transparent 51px);
+  background-size: 60px 52px;
+  position: relative;
+}
+
+.contact::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg,
+    var(--beniaka), var(--orange), var(--amber), var(--orange), var(--beniaka));
+}
+
+.contact-form {
+  max-width: 580px;
+  margin: 0 auto;
+  background: var(--shiro);
+  padding: 48px 48px;
+  border-radius: 4px;
+  box-shadow: 0 8px 48px rgba(58,48,40,0.1);
+  border-top: 3px solid var(--beniaka);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sumizumi);
+  letter-spacing: 0.1em;
+}
+
+.required {
+  display: inline-block;
+  font-size: 10px;
+  background: var(--beniaka);
+  color: var(--shiro);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 13px 16px;
+  border: 1px solid rgba(184,150,46,0.3);
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  color: var(--keshizumi);
+  background: var(--shiro);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--beniaka);
+  box-shadow: 0 0 0 3px rgba(155,35,53,0.08);
+}
+
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+/* ========================================
+   フッター
+======================================== */
+.footer {
+  background: var(--keshizumi);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 56px var(--container-px);
+  position: relative;
+}
+
+/* フッター上部の和柄ライン — 紅・柿・山吹 */
+.footer::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--beniaka),
+    var(--orange),
+    var(--amber),
+    var(--orange),
+    var(--beniaka));
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--kin-light);
+  letter-spacing: 0.25em;
+  margin-bottom: 6px;
+}
+
+.footer-sub {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  margin-bottom: 28px;
+  color: rgba(255,255,255,0.35);
+}
+
+.footer-kamon {
+  font-size: 22px;
+  letter-spacing: 8px;
+  color: rgba(232,213,163,0.3);
+  margin-bottom: 20px;
+}
+
+.footer-copy {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   チャットボットウィジェット
+======================================== */
+.chat-widget {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* トグルボタン */
+.chat-toggle {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--beniaka);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(155,35,53,0.45);
+  transition: all var(--transition);
+  position: relative;
+}
+
+.chat-toggle::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(155,35,53,0.25);
+}
+
+.chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(155,35,53,0.55); }
+
+.chat-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  background: var(--kin);
+  color: var(--shiro);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 3px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+
+/* チャットウィンドウ */
+.chat-window {
+  width: 340px;
+  max-height: 520px;
+  background: var(--shiro);
+  border-radius: 4px;
+  box-shadow: 0 8px 48px rgba(58,48,40,0.18);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(184,150,46,0.2);
+  border-top: 3px solid var(--beniaka);
+  animation: chat-open 0.3s ease;
+}
+
+.chat-window.open { display: flex; }
+
+@keyframes chat-open {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* チャットヘッダー */
+.chat-header {
+  padding: 16px 20px;
+  background: var(--beniaka);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header-info { display: flex; align-items: center; gap: 12px; }
+
+.chat-avatar {
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--shiro);
+  flex-shrink: 0;
+}
+
+.chat-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--shiro);
+  font-family: var(--font-serif);
+  letter-spacing: 0.1em;
+}
+
+.chat-status { font-size: 9px; color: rgba(255,255,255,0.65); letter-spacing: 0.05em; }
+
+.chat-close {
+  background: rgba(255,255,255,0.18);
+  border: none;
+  color: var(--shiro);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.chat-close:hover { background: rgba(255,255,255,0.32); }
+
+/* メッセージエリア */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #FAF6F2;
+}
+
+.chat-messages::-webkit-scrollbar { width: 3px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--sakura); border-radius: 3px; }
+
+.message { display: flex; align-items: flex-end; gap: 8px; }
+.bot-message { justify-content: flex-start; }
+.user-message { justify-content: flex-end; }
+
+.message-avatar {
+  width: 26px; height: 26px;
+  background: var(--beniaka);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--shiro);
+  flex-shrink: 0;
+}
+
+.message-bubble {
+  max-width: 76%;
+  padding: 11px 15px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.bot-message .message-bubble {
+  background: var(--shiro);
+  color: var(--keshizumi);
+  border-bottom-left-radius: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border-left: 2px solid var(--sakura);
+}
+
+.user-message .message-bubble {
+  background: var(--beniaka);
+  color: var(--shiro);
+  border-bottom-right-radius: 0;
+}
+
+/* クイック返信 */
+.quick-replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 0; }
+
+.quick-reply {
+  background: var(--shiro);
+  border: 1px solid rgba(155,35,53,0.3);
+  color: var(--beniaka);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  padding: 6px 13px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all var(--transition);
+  letter-spacing: 0.05em;
+}
+
+.quick-reply:hover { background: var(--beniaka); color: var(--shiro); }
+
+/* タイピング */
+.typing-indicator { display: flex; align-items: center; gap: 8px; }
+
+.typing-dots {
+  display: flex;
+  gap: 4px;
+  background: var(--shiro);
+  padding: 11px 15px;
+  border-radius: 4px;
+  border-bottom-left-radius: 0;
+  border-left: 2px solid var(--sakura);
+}
+
+.typing-dots span {
+  width: 6px; height: 6px;
+  background: var(--sakura);
+  border-radius: 50%;
+  animation: typing 1.2s ease-in-out infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50%       { transform: translateY(-4px); opacity: 1; }
+}
+
+/* 入力エリア */
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(184,150,46,0.15);
+  background: var(--shiro);
+}
+
+#chatInput {
+  flex: 1;
+  border: 1px solid rgba(184,150,46,0.3);
+  border-radius: 2px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color var(--transition);
+  background: var(--shiro);
+  color: var(--keshizumi);
+}
+
+#chatInput:focus { border-color: var(--beniaka); }
+
+.chat-send {
+  width: 38px; height: 38px;
+  border-radius: 2px;
+  background: var(--beniaka);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shiro);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.chat-send:hover { opacity: 0.85; }
+
+/* ========================================
+   レスポンシブ（タブレット）
+======================================== */
+@media (max-width: 900px) {
+  :root { --section-py: 72px; }
+
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .about-content { grid-template-columns: 1fr; gap: 48px; }
+  .about-visual { order: -1; }
+
+  .hero { grid-template-columns: 140px 1fr 140px; }
+  .hf-red-lg    { width: 80px; height: 80px; }
+  .hf-orange-md { width: 56px; height: 56px; }
+  .hf-yellow-sm { width: 40px; height: 40px; }
+  .slider-btn--prev { left: 12px; }
+  .slider-btn--next { right: 12px; }
+
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item--wide { grid-column: span 2; }
+  .gallery-item--tall { grid-row: span 1; }
+
+  .courses-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+
+  .flow-steps { flex-direction: column; align-items: center; }
+  .flow-arrow { transform: rotate(90deg); padding: 0; }
+  .flow-step { max-width: 100%; width: 100%; }
+}
+
+/* ========================================
+   レスポンシブ（スマートフォン）
+======================================== */
+@media (max-width: 600px) {
+  :root {
+    --section-py: 56px;
+    --container-px: 20px;
+  }
+
+  .hero { grid-template-columns: 80px 1fr 80px; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .hero-buttons .btn { width: 100%; max-width: 280px; }
+  .hero-deco { display: none; }
+
+  .about-card { width: 240px; height: 240px; }
+  .sample-char { font-size: 100px; }
+
+  .contact-form { padding: 32px 24px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+  .about-photo-stack { width: 260px; height: 300px; }
+  .about-photo-main { width: 200px; height: 160px; }
+  .about-photo-sub1, .about-photo-sub2 { width: 140px; height: 110px; }
+  .hero-flowers { gap: 6px; padding: 16px 4px; }
+  .hf-red-lg { width: 52px; height: 52px; }
+  .hf-orange-md { width: 36px; height: 36px; }
+  .hf-yellow-sm { display: none; }
+  .hf-sakura { display: none; }
+  .hf-dot { width: 8px; height: 8px; }
+  .slider-btn--prev { left: 8px; }
+  .slider-btn--next { right: 8px; }
+  .slider-btn { width: 38px; height: 38px; font-size: 22px; }
+  .hero-text { bottom: 60px; }
+  .hero-text-tags span { font-size: 10px; padding: 4px 10px; }
+
+  .chat-widget { bottom: 16px; right: 16px; left: 16px; align-items: flex-end; }
+  .chat-window { width: 100%; max-height: 70svh; }
+}
